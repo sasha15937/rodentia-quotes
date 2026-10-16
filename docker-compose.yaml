@@ -1,0 +1,8 @@
+services:
+  rodentia-quotes:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app/
+    command: sh -c "npm ci && npm run build && npm run prod"

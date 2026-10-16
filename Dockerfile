@@ -1,4 +1,3 @@
-FROM ubuntu:latest
-LABEL authors="mrfufl4ik"
+FROM node:22-slim
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
