@@ -1,5 +1,5 @@
 :root {
-    --font: "Geologica", sans-serif;
+    --font: "Unbounded", sans-serif;
     --bgc: #2A1E17;
     --bgc-card: #3B2A20;
     --text: #F3E5D0;
@@ -27,31 +27,21 @@ body {
     gap: 20px;
 }
 
-header {
-    background-color: var(--bgc-card);
-    border-radius: 20px;
-    padding: 1rem 2rem;
-    flex-grow: 2;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    gap: 2rem;
-    display: flex;
-    
-}
-
-.nav-btn {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14pt;
-}
-
 .logo {
     max-width: 180px;
 }
 
-.div-line {
-    background: var(--akc-1);
-    height: 5rem;
-    width: 2px;
+.quote {
+    background-color: var(--bgc-card);
+}
+
+.qutotebr {
+    width: 50px;
+    position: absolute;
+    top: 80px;
+    left: 50px;
+}
+.bk {
+    bottom: 80px;
+    right: 50px;
 }

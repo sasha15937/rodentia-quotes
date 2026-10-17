@@ -1,0 +1,23 @@
+header {
+    background-color: var(--bgc-card);
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    flex-grow: 2;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 2rem;
+    display: flex;
+    
+}
+
+.nav-btn {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14pt;
+}
+.div-line {
+    background: var(--akc-1);
+    height: 5rem;
+    width: 2px;
+}
