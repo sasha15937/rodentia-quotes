@@ -1,0 +1,57 @@
+:root {
+    --font: "Geologica", sans-serif;
+    --bgc: #2A1E17;
+    --bgc-card: #3B2A20;
+    --text: #F3E5D0;
+    --fade-text: #A68B73;
+    --akc-1: #D9A066;
+    --akc-2: #C4704F;
+
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin-top: 2rem;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    display: flex;
+    font-family: var(--font);
+    font-size: 1.6rem;
+    color: var(--text);
+    background-color: var(--bgc);
+    flex-direction: column;
+    gap: 20px;
+}
+
+header {
+    background-color: var(--bgc-card);
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    flex-grow: 2;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 2rem;
+    display: flex;
+    
+}
+
+.nav-btn {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14pt;
+}
+
+.logo {
+    max-width: 180px;
+}
+
+.div-line {
+    background: var(--akc-1);
+    height: 5rem;
+    width: 2px;
+}
