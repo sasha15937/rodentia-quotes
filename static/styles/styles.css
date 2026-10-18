@@ -15,6 +15,7 @@ html {
 }
 
 body {
+    cursor: default;
     margin-top: 2rem;
     margin-left: 10vw;
     margin-right: 10vw;
@@ -31,17 +32,107 @@ body {
     max-width: 180px;
 }
 
+/* .quote-line {
+    position: relative;
+    display: flex;
+    flex-grow: 2;
+    background: var(--akc-2);
+    width: 2px;
+    height: 100px;
+} */
+.qbody {display:flex; gap: 20px; flex-direction: column;}
+button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: var(--akc-2);
+    padding: 0.5rem 1.5rem;
+    gap: 5px;
+    border-width: 0;
+    font-size: 12pt;
+    font-family: var(--font);
+    color: var(--text);
+}
+
+button:hover {
+    background-color: #b54835;
+    color: var(--fade-text);
+}
+
 .quote {
     background-color: var(--bgc-card);
+    border-radius: 20px;
+    /* padding: 2rem; */
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    /* align-items: center; */
 }
 
 .qutotebr {
-    width: 50px;
-    position: absolute;
-    top: 80px;
-    left: 50px;
+    width: 40px;
+    position: relative;
+    left: 5%;
+    top: 2rem;
 }
-.bk {
-    bottom: 80px;
-    right: 50px;
+.qutotebr-bk {
+    width: 40px;
+    position: relative;
+    left: 90%;
+    bottom: 8rem;
+}
+.block-quote {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15rem;
+    padding-right: 15rem;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    font-size: 14pt;
+    gap: 20px;
+}
+.single {text-align: center;}
+.about-quote {
+    display: flex;
+    flex-grow: 2;
+    justify-content: space-between;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+.dialog {
+    align-items: left;
+    padding-top: 1rem;
+}
+.dialog .about-quote {
+    justify-content: right;
+}
+
+.dialog-line {
+    display: flex;
+    gap: 10px;
+}
+
+.author-quote span{
+    border-radius: 20px;
+    background-color: var(--akc-2);
+    font-size: 12pt;
+    padding: 1rem 1.5rem;
+    white-space: nowrap;
+}
+
+.tag {
+    border-radius: 20px;
+    font-size: 12pr;
+    background-color: var(--akc-1);
+    padding: 0.5rem 1rem;
+}
+
+.tags-quote {
+    display: flex;
+    gap: 10px;
 }
