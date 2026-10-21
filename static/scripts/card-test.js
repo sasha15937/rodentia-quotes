@@ -15,13 +15,13 @@ const createSingle = (q) => {
     const line = q.lines[0];
     return `
         <div class="quote single">
-            <img src="styles/image/que-br.svg" class="qutotebr">
+            <img src="styles/image/quote-breck.svg" class="quote-breck">
             <div class="block-quote">${esc(line.text)}</div>
             <div class="about-quote">
                 <div class="author-quote"><span>${esc(line.author)}</span></div>
                 <div class="tags-quote">${createTags(q.tags)}</div>
             </div>
-            <img src="styles/image/que-br-bk.svg" class="qutotebr-bk">
+            <img src="styles/image/quote-breck-back.svg" class="quote-breck-back">
         </div>
     `;
 };
@@ -35,14 +35,14 @@ const createDialogLine = (l) => `
 
 const createDialog = (q) => `
     <div class="quote dialog">
-        <img src="styles/image/que-br.svg" class="qutotebr">
+        <img src="styles/image/quote-breck.svg" class="quote-breck">
         <div class="block-quote">
             ${q.lines.map(createDialogLine).join("")}
         </div>
         <div class="about-quote">
             <div class="tags-quote">${createTags(q.tags)}</div>
         </div>
-        <img src="styles/image/que-br-bk.svg" class="qutotebr-bk">
+        <img src="styles/image/quote-breck-back.svg" class="quote-breck-back">
     </div>
 `;
 

@@ -6,7 +6,7 @@
     --fade-text: #A68B73;
     --akc-1: #D9A066;
     --akc-2: #C4704F;
-
+    --round-brd: 20px;
 }
 
 html {
@@ -40,14 +40,20 @@ body {
     width: 2px;
     height: 100px;
 } */
-.qbody {display:flex; gap: 20px; flex-direction: column;}
-button {
+.qbody {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+button, .addQuote-btn {
+    text-decoration: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: var(--round-brd);
     background-color: var(--akc-2);
     padding: 0.5rem 1.5rem;
     gap: 5px;
@@ -57,14 +63,18 @@ button {
     color: var(--text);
 }
 
-button:hover {
-    background-color: #b54835;
-    color: var(--fade-text);
+a:hover {
+    color: #e2cfbf;
+}
+
+button:hover, .addQuote-btn:hover {
+    background-color: #b53935;
+    color: #e2cfbf;
 }
 
 .quote {
     background-color: var(--bgc-card);
-    border-radius: 20px;
+    border-radius: var(--round-brd);
     /* padding: 2rem; */
     display: flex;
     flex-grow: 2;
@@ -74,18 +84,20 @@ button:hover {
     /* align-items: center; */
 }
 
-.qutotebr {
+.quote-breck {
     width: 40px;
     position: relative;
     left: 5%;
     top: 2rem;
 }
-.qutotebr-bk {
+
+.quote-breck-back {
     width: 40px;
     position: relative;
     left: 90%;
     bottom: 8rem;
 }
+
 .block-quote {
     display: flex;
     flex-direction: column;
@@ -96,7 +108,11 @@ button:hover {
     font-size: 14pt;
     gap: 20px;
 }
-.single {text-align: center;}
+
+.single {
+    text-align: center;
+}
+
 .about-quote {
     display: flex;
     flex-grow: 2;
@@ -104,10 +120,12 @@ button:hover {
     margin-left: 5rem;
     margin-right: 5rem;
 }
+
 .dialog {
     align-items: left;
     padding-top: 1rem;
 }
+
 .dialog .about-quote {
     justify-content: right;
 }
@@ -117,8 +135,8 @@ button:hover {
     gap: 10px;
 }
 
-.author-quote span{
-    border-radius: 20px;
+.author-quote span {
+    border-radius: var(--round-brd);
     background-color: var(--akc-2);
     font-size: 12pt;
     padding: 1rem 1.5rem;
@@ -126,7 +144,12 @@ button:hover {
 }
 
 .tag {
-    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    border-radius: var(--round-brd);
     font-size: 12pr;
     background-color: var(--akc-1);
     padding: 0.5rem 1rem;

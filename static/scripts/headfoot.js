@@ -4,6 +4,6 @@ async function loadComponent(id, file) {
     document.getElementById(id).innerHTML = html;
 }
 
-loadComponent('header-part', '../header.html');
-loadComponent('footer-part', '../footer.html');
+loadComponent('header-part', '../head-foot/header.html');
+loadComponent('footer-part', '../head-foot/footer.html');
 

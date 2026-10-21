@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/form.css">
     <link rel="icon" type="image/x-icon" href="/styles/image/favicon.ico">
     <script src="scripts/headfoot.js" defer></script>
+    <script src="scripts/form.js" defer></script>
     <title>Создание цитаты</title>
 </head>
+
 <body>
     <header id="header-part"></header>
 
+    <section class="quote-add">
+        <h1>Добавление цитаты</h1>
+        <form class="quote-form">
+
+            <div class="quote-form__lines"></div>
+            <button type="button" class="quote-form__add-line">Автор <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus preview-icon">
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                </svg>
+            </button>
+
+            <label class="quote-form__switch">
+                <input type="checkbox" class="quote-form__dialog-toggle"> Диалог?
+            </label>
+            <fieldset class="tag-add-list">
+                <div class="quote-form__tags"></div>
+                <input class="quote-form__tag-input" placeholder="Добавить тег">
+                <button type="button" class="quote-form__tag-add"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus preview-icon">
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                    </svg>
+                </button>
+            </fieldset>
+
+            <p class="quote-form__error"></p>
+            <button type="submit" class="quote-form__submit">Отправить на проверку</button>
+        </form>
+    </section>
+
+
+
     <footer id="footer-part"></footer>
 </body>
+
 </html>

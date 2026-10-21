@@ -1,0 +1,51 @@
+textarea {
+    resize: none;
+}
+
+.quote-add {
+    background-color: var(--bgc-card);
+    padding: 2rem 3rem;
+    border-radius: var(--round-brd);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    padding: 0;
+    border: 0;
+}
+
+.quote-form__tag-add, .tag button {
+    padding: 1rem;
+}
+
+.tag-add-list, .quote-form__tags {
+    display: flex;
+}
+
+.quote-form__add-line {
+    display: none;
+}
+
+.quote-form__line {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.quote-form--dialog .quote-form__add-line {
+    display: block;
+}
+
+.quote-form--dialog .quote-form__line {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.quote-form--dialog .quote-form__author {
+    width: 140px;
+    flex-shrink: 0;
+}
