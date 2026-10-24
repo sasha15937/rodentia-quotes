@@ -47,20 +47,36 @@ const insertTag = db.prepare("INSERT OR IGNORE INTO tags (name) VALUES (?)");
 const findTag = db.prepare("SELECT id FROM tags WHERE name = ?");
 const linkTag = db.prepare("INSERT OR IGNORE INTO quote_tags (quote_id, tag_id) VALUES (?, ?)");
 
-// transaction: либо записалось всё, либо ничего
-const createQuoteTx = db.transaction((q: QuoteInput) => {
-    const quoteId = Number(insertQuote.run(q.type).lastInsertRowid);
+const writeLinesAndTags = (quoteId: number, q: QuoteInput): void => {
     q.lines.forEach((l, i) => insertLine.run(quoteId, i, l.author, l.text));
     for (const name of q.tags) {
         insertTag.run(name);
         const tag = findTag.get(name) as { id: number };
         linkTag.run(quoteId, tag.id);
     }
+};
+
+const createQuoteTx = db.transaction((q: QuoteInput) => {
+    const quoteId = Number(insertQuote.run(q.type).lastInsertRowid);
+    writeLinesAndTags(quoteId, q);
     return quoteId;
 });
 
 export const createQuote = (q: QuoteInput): number => createQuoteTx(q);
 
+const updateType = db.prepare("UPDATE quotes SET type = ? WHERE id = ?");
+const deleteLines = db.prepare("DELETE FROM lines WHERE quote_id = ?");
+const deleteQuoteTags = db.prepare("DELETE FROM quote_tags WHERE quote_id = ?");
+
+const updateQuoteTx = db.transaction((id: number, q: QuoteInput): boolean => {
+    if (updateType.run(q.type, id).changes === 0) return false; // такой цитаты нет
+    deleteLines.run(id);
+    deleteQuoteTags.run(id);
+    writeLinesAndTags(id, q);
+    return true;
+});
+
+export const updateQuote = (id: number, q: QuoteInput): boolean => updateQuoteTx(id, q);
 // type QuoteRow = { id: number; type: "single" | "dialog"; created_at: string };
 type LineRow = { quote_id: number; author: string; text: string };
 type TagRow = { quote_id: number; name: string };

@@ -3,7 +3,7 @@ import * as path from "node:path";
 import { z } from "zod";
 import { timingSafeEqual } from "node:crypto";
 import type { RequestHandler } from "express";
-import { createQuote, getApprovedQuotes, getAllQuotes, approveQuote, deleteQuote } from "./db.js";
+import { createQuote, updateQuote, getApprovedQuotes, getAllQuotes, approveQuote, deleteQuote } from "./db.js";
 
 const app: Express = express();
 
@@ -114,6 +114,22 @@ admin.delete("/api/quotes/:id", (req, res) => {
     const id = Number(req.params.id);
     if (!Number.isInteger(id)) { res.status(400).json({ error: "Плохой id" }); return; }
     res.json({ ok: deleteQuote(id) });
+});
+
+admin.put("/api/quotes/:id", (req, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id)) { res.status(400).json({ error: "Плохой id" }); return; }
+
+    const parsed = QuoteInputSchema.safeParse(req.body);
+    if (!parsed.success) {
+        res.status(400).json({
+            error: "Некорректные данные",
+            details: parsed.error.issues.map((i) => i.message),
+        });
+        return;
+    }
+
+    res.json({ ok: updateQuote(id, parsed.data) });
 });
 
 app.use("/admin", admin);
