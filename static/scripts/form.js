@@ -16,24 +16,41 @@ const esc = (s) =>
 
 const getRows = () => [...linesBox.querySelectorAll(".quote-form__line")];
 
+const updateRemoveButtons = () => {
+    const canRemove = toggle.checked && getRows().length > 2;
+    getRows().forEach((row) => {
+        row.querySelector(".quote-form__remove-line").hidden = !canRemove;
+    });
+};
+
 const addLine = () => {
     linesBox.insertAdjacentHTML("beforeend", `
-    <div class="quote-form__line">
-      <input class="quote-form__author" placeholder="Автор" autocomplete="off"  maxlength="40">
-      <textarea class="quote-form__text" placeholder="Цитата" autocomplete="off"  maxlength="1000"></textarea>
-    </div>
-  `);
+        <div class="quote-form__line">
+            <input class="quote-form__author" placeholder="Автор" maxlength="40">
+            <textarea class="quote-form__text" placeholder="Цитата" maxlength="1000"></textarea>
+            <button type="button" class="quote-form__remove-line" title="Убрать реплику">×</button>
+        </div>
+    `);
+    updateRemoveButtons();
 };
+
+linesBox.addEventListener("click", (e) => {
+    const btn = e.target.closest(".quote-form__remove-line");
+    if (!btn || getRows().length <= 2) return;
+    btn.closest(".quote-form__line").remove();
+    updateRemoveButtons();
+});
 
 addLineBtn.addEventListener("click", addLine);
 
 toggle.addEventListener("change", () => {
     form.classList.toggle("quote-form--dialog", toggle.checked);
     if (toggle.checked) {
-        while (getRows().length < 2) addLine();       
+        while (getRows().length < 2) addLine();
     } else {
-        getRows().slice(1).forEach((row) => row.remove()); 
+        getRows().slice(1).forEach((row) => row.remove());
     }
+    updateRemoveButtons();   // ← новая строка
 });
 
 const renderTags = () => {
@@ -55,7 +72,7 @@ const addTag = () => {
 tagAddBtn.addEventListener("click", addTag);
 tagInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-        e.preventDefault();  
+        e.preventDefault();
         addTag();
     }
 });
@@ -91,7 +108,31 @@ form.addEventListener("submit", async (e) => {
     }
 
     const quote = { type: isDialog ? "dialog" : "single", lines, tags };
-    console.log(quote); // пока без сервера
+
+    try {
+        const res = await fetch("/api/quotes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(quote),
+        });
+
+        if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            errorBox.textContent = data.details?.join(", ") || "Не удалось отправить";
+            return;
+        }
+
+        // успех: очистить форму
+        form.reset();
+        linesBox.innerHTML = "";
+        tags = [];
+        renderTags();
+        form.classList.remove("quote-form--dialog");
+        addLine();
+        errorBox.textContent = "Отправлено на проверку";
+    } catch {
+        errorBox.textContent = "Нет связи с сервером";
+    }
 
     // когда будет сервер:
     // const res = await fetch("/api/quotes", {

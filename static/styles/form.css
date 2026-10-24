@@ -2,6 +2,10 @@ textarea {
     resize: none;
 }
 
+svg {
+    height: auto;
+}
+
 .quote-add {
     background-color: var(--bgc-card);
     padding: 2rem 3rem;
@@ -9,6 +13,8 @@ textarea {
 }
 
 form {
+    padding: 1rem 3rem;
+    gap: 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -18,25 +24,54 @@ fieldset {
     border: 0;
 }
 
-.quote-form__tag-add, .tag button {
-    padding: 1rem;
+.quote-form__text {
+    font-family: var(--font);
+    font-size: 12pt;
+    width: 500px;
+    height: 100px;
 }
 
-.tag-add-list, .quote-form__tags {
+.quote-form__author {
+    width: 150px;
+    font-family: var(--font);
+}
+
+.quote-form__tag-input {
+    height: 24px;
+    font-family: var(--font);
+}
+
+.tag-add-list,
+.quote-form__tags {
     display: flex;
 }
 
 .quote-form__add-line {
     display: none;
+    width: 150px;
+    height: 50px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.quote-form__remove-line[hidden] {
+    display: none;
+}
+
+input {
+    accent-color: var(--akc-2);
 }
 
 .quote-form__line {
     display: flex;
     flex-direction: column-reverse;
+    gap: 10px;
 }
 
 .quote-form--dialog .quote-form__add-line {
-    display: block;
+    display: flex;
 }
 
 .quote-form--dialog .quote-form__line {

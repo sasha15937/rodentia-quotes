@@ -1,4 +1,4 @@
-const baseUrl = "./quotes/quotes.json"
+const baseUrl = "/api/quotes";
 
 const container = document.querySelector('.qbody')
 let quoteList = []
@@ -49,7 +49,7 @@ const createDialog = (q) => `
 const createCard = (q) => (q.type === "dialog" ? createDialog(q) : createSingle(q));
 
 const render = () => {
-    container.innerHTML = Object.values(quoteList.quote).map(createCard).join("");
+    container.innerHTML = quoteList.map(createCard).join("");
 };
 
 const loadData = async () => {
