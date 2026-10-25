@@ -118,7 +118,7 @@ form.addEventListener("submit", async (e) => {
 
         if (!res.ok) {
             const data = await res.json().catch(() => ({}));
-            errorBox.textContent = data.details?.join(", ") || "Не удалось отправить";
+            errorBox.textContent = data.details?.join(", ") || data.error || "Не удалось отправить";
             return;
         }
 

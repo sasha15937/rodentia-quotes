@@ -3,14 +3,47 @@ import * as path from "node:path";
 import { z } from "zod";
 import { timingSafeEqual } from "node:crypto";
 import type { RequestHandler } from "express";
-import { createQuote, updateQuote, getApprovedQuotes, getAllQuotes, approveQuote, deleteQuote } from "./db.js";
+import cookieParser from "cookie-parser";
+import { randomUUID } from "node:crypto";
+import { createQuote, updateQuote, getApprovedQuotes, getAllQuotes, approveQuote, deleteQuote, getQuoteOfTheDay, isReactionKind, toggleReaction, getReactionState, getTopQuotes } from "./db.js";
+import "dotenv/config";
+import { rateLimit } from "express-rate-limit";
+
+
 
 const app: Express = express();
 
+app.set("trust proxy", Number(process.env.TRUST_PROXY ?? 0));
 app.use(express.json());
-app.use("/", express.static(path.join(process.cwd(), "static")));
+app.use("/", express.static(path.join(process.cwd(), "static"), { extensions: ["html"] }));
 
-app.post("/api/quotes", (req, res) => {
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+    let id = req.cookies?.visitor as string | undefined;
+    if (!id || !/^[0-9a-f-]{36}$/.test(id)) {
+        id = randomUUID();
+        res.cookie("visitor", id, {
+            httpOnly: true,           // скрипт на странице не может прочитать куку
+            sameSite: "lax",          // чужие сайты не могут отправлять её от вашего имени
+            secure: req.secure,       // на HTTPS кука помечается защищённой
+            maxAge: 365 * 24 * 60 * 60 * 1000,
+        });
+    }
+    res.locals.visitor = id;
+    next();
+});
+
+const createQuoteLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,      // окно в один час
+    limit: 10,                      // не больше 10 цитат за окно с одного IP
+    skipFailedRequests: true,      // запросы с ошибкой (400) в счёт не идут
+    standardHeaders: "draft-7",
+    legacyHeaders: false,
+    message: { error: "Слишком много цитат с вашего адреса. Попробуйте позже." },
+});
+
+app.post("/api/quotes", createQuoteLimiter, (req, res) => {
     const parsed = QuoteInputSchema.safeParse(req.body);
 
     if (!parsed.success) {
@@ -26,7 +59,20 @@ app.post("/api/quotes", (req, res) => {
 });
 
 app.get("/api/quotes", (_req, res) => {
-    res.json(getApprovedQuotes());
+    res.json(getApprovedQuotes(res.locals.visitor as string));
+});
+
+const APP_TIMEZONE = process.env.APP_TIMEZONE ?? "Asia/Omsk";
+
+app.get("/api/quote-of-the-day", (_req, res) => {
+    // формат "sv-SE" даёт дату как 2026-10-25
+    const dateKey = new Date().toLocaleDateString("sv-SE", { timeZone: APP_TIMEZONE });
+    const quote = getQuoteOfTheDay(dateKey, res.locals.visitor as string);
+    if (!quote) {
+        res.status(404).json({ error: "Пока нет цитат" });
+        return;
+    }
+    res.json(quote);
 });
 
 const LineSchema = z.object({
@@ -130,6 +176,36 @@ admin.put("/api/quotes/:id", (req, res) => {
     }
 
     res.json({ ok: updateQuote(id, parsed.data) });
+});
+
+const reactionLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    limit: 30,
+    standardHeaders: "draft-7",
+    legacyHeaders: false,
+    message: { error: "Слишком часто. Подождите минуту." },
+});
+
+app.post("/api/quotes/:id/reactions/:kind", reactionLimiter, (req, res) => {
+    const id = Number(req.params.id);
+    const kind = String(req.params.kind);
+    const visitor = res.locals.visitor as string;
+
+    if (!Number.isInteger(id) || !isReactionKind(kind)) {
+        res.status(400).json({ error: "Плохой запрос" });
+        return;
+    }
+    const result = toggleReaction(id, visitor, kind);
+    if (result === "missing") {
+        res.status(404).json({ error: "Цитата не найдена" });
+        return;
+    }
+    res.json({ result, ...getReactionState(id, visitor) });
+});
+
+app.get("/api/top", (req, res) => {
+    const period = req.query.period === "month" ? "month" : "all";
+    res.json(getTopQuotes(period, res.locals.visitor as string));
 });
 
 app.use("/admin", admin);
