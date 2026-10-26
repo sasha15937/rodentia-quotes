@@ -88,7 +88,7 @@ export const updateQuote = (id: number, q: QuoteInput): boolean => updateQuoteTx
 type LineRow = { quote_id: number; author: string; text: string };
 type TagRow = { quote_id: number; name: string };
 
-export const REACTION_KINDS = ["laugh", "fire", "skull", "heart", "clap"] as const;
+export const REACTION_KINDS = ["fire", "heartfire", "heart", "arrowheart", "cry"] as const;
 export type ReactionKind = (typeof REACTION_KINDS)[number];
 
 export const isReactionKind = (k: string): k is ReactionKind =>

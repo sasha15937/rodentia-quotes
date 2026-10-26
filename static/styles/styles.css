@@ -95,7 +95,7 @@ button:hover, .addQuote-btn:hover {
     width: 40px;
     position: relative;
     left: 90%;
-    bottom: 8rem;
+    bottom: 12rem;
 }
 
 .block-quote {
@@ -111,14 +111,6 @@ button:hover, .addQuote-btn:hover {
 
 .single {
     text-align: center;
-}
-
-.about-quote {
-    display: flex;
-    flex-grow: 2;
-    justify-content: space-between;
-    margin-left: 5rem;
-    margin-right: 5rem;
 }
 
 .dialog {
@@ -160,3 +152,24 @@ button:hover, .addQuote-btn:hover {
     gap: 10px;
 }
 
+.about-quote {
+    display: flex;
+    flex-grow: 2;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 3rem;
+}
+
+.reactions {
+    display: flex;
+    padding: 1rem 2rem;
+    gap: 10px;
+    margin-right: 3rem;
+}
+
+.top-tabs {
+    display: flex;
+    gap: 10px;
+}

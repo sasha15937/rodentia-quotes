@@ -7,11 +7,11 @@ const createTags = (tags) =>
     tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("");
 
 const REACTION_EMOJI = {
-    laugh: "😂",
     fire: "🔥",
-    skull: "💀",
     heart: "❤️",
-    clap: "👏",
+    heartfire: "\u2764\uFE0F\u200D\u{1F525}",
+    arrowheart: "💘",
+    cry: "😭",
 };
 
 const createReactions = (q) => {
@@ -35,8 +35,8 @@ const createSingle = (q) => {
             <img src="styles/image/quote-breck.svg" class="quote-breck">
             <div class="block-quote">${esc(line.text)}</div>
             <div class="about-quote">
-                ${createReactions(q)}
                 <div class="author-quote"><span>${esc(line.author)}</span></div>
+                ${createReactions(q)}
                 <div class="tags-quote">${createTags(q.tags)}</div>
             </div>
             <img src="styles/image/quote-breck-back.svg" class="quote-breck-back">

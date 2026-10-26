@@ -14,7 +14,7 @@ const loadTop = async (period) => {
         topBox.innerHTML = list.length
             ? list.map((q, i) => `
           <div class="top-item">
-            <span class="top-rank">#${i + 1} · ${q.score}</span>
+            <span class="top-rank">#${i + 1} · ${q.score} реакций</span>
             ${createCard(q)}
           </div>
         `).join("")
