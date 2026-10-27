@@ -2,7 +2,7 @@ header {
     background-color: var(--bgc-card);
     border-radius: var(--round-brd);
     padding: 1rem 5rem;
-    flex-grow: 2;
+    flex-grow: 0;
     align-items: center;
     text-align: center;
     justify-content: space-between;
@@ -26,21 +26,52 @@ header {
     width: 2px;
 }
 
-.search {
+.search__box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 1rem;
+    /* возьмите рамку и цвет, как у прежней кнопки */
     border: 2px solid var(--akc-1);
     border-radius: var(--round-brd);
-    padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 
-.search a {
+.search__box input {
+    width: 8.5rem;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    transition: width 0.2s;
+}
+
+.search__box input::placeholder {
+    color: inherit;
+    /* «Поиск» выглядит так же, как раньше */
+    opacity: 1;
+}
+
+/* при вводе поле раздвигается, чтобы запрос помещался */
+.search__box:focus-within input {
+    width: 14rem;
+}
+
+/* .search__box {
+    border: 2px solid var(--akc-1);
+    border-radius: var(--round-brd);
+    
     display: flex;
     gap: 10px;
+    background-color: var(--bgc);
 }
 
-.search:hover {
+#search-form:hover {
     border: 2px solid var(--akc-2);
     color: #e2cfbf;
-}
+    background-color: var(--bgc-card);
+} */
 
 nav,
 .nav-buttons {

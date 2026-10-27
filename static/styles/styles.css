@@ -15,6 +15,8 @@ html {
 }
 
 body {
+    min-height: 100vh;
+    min-height: 100dvh;
     cursor: default;
     margin-top: 2rem;
     margin-left: 10vw;
@@ -32,21 +34,14 @@ body {
     max-width: 180px;
 }
 
-/* .quote-line {
-    position: relative;
-    display: flex;
-    flex-grow: 2;
-    background: var(--akc-2);
-    width: 2px;
-    height: 100px;
-} */
 .qbody {
     display: flex;
     gap: 20px;
     flex-direction: column;
 }
 
-button, .addQuote-btn {
+button,
+.addQuote-btn {
     text-decoration: none;
     cursor: pointer;
     display: flex;
@@ -67,8 +62,15 @@ a:hover {
     color: #e2cfbf;
 }
 
-button:hover, .addQuote-btn:hover {
+button:hover,
+.addQuote-btn:hover,
+.author-link:hover {
     background-color: #b53935;
+    color: #e2cfbf;
+}
+
+.tag:hover {
+    background-color: var(--fade-text);
     color: #e2cfbf;
 }
 
@@ -136,6 +138,7 @@ button:hover, .addQuote-btn:hover {
 }
 
 .tag {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,6 +165,16 @@ button:hover, .addQuote-btn:hover {
     margin-top: 3rem;
 }
 
+
+.author-link {
+    cursor: pointer;
+    border-radius: var(--round-brd);
+    background-color: var(--akc-2);
+    font-size: 12pt;
+    padding: 1rem 1.5rem;
+    white-space: nowrap;
+}
+
 .reactions {
     display: flex;
     padding: 1rem 2rem;
@@ -169,7 +182,12 @@ button:hover, .addQuote-btn:hover {
     margin-right: 3rem;
 }
 
+.reaction--mine {
+    background-color: #ce4331;
+}
+
 .top-tabs {
     display: flex;
     gap: 10px;
 }
+

@@ -1,9 +1,15 @@
 <head>
     <link rel="stylesheet" href="../styles/head.css">
+    <link rel="stylesheet" href="styles/adaptive.css">
 </head>
 
 <nav>
-    <a href="../" class="toMain"><img src="styles/image/лого.svg" class="logo"></a>
+    <a href="../" class="logo-btn">
+        <picture>
+            <source media="(max-width: 768px)" srcset="styles/image/лого-без-букв.svg">
+            <img src="styles/image/лого.svg" class="logo minilogo" alt="Цитаты Грызунов">
+        </picture>
+    </a>
 
     <div class="div-line"> </div>
 
@@ -12,25 +18,22 @@
 </nav>
 
 <div class="nav-buttons">
-    <div class="search">
-        <a href="../search" class="nav-btn search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" class="lucide lucide-search preview-icon">
+    <form class="search" id="search-form" action="/" method="get" role="search">
+        <label class="search__box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-search preview-icon">
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />
             </svg>
-            Поиск
+            <input id="search" name="q" type="search" placeholder="Поиск" autocomplete="off">
+        </label>
+    </form>
+
+    <div class="addQuote">
+        <a class="addQuote-btn" href="../form" aria-label="Добавить цитату">
+            <span class="btn-add__text">Добавить</span>
+            <span class="btn-add__plus">+</span>
         </a>
     </div>
-    <div class="addQuote"></div>
-    <a class="addQuote-btn" href="../form">
-        Добавить
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-plus preview-icon">
-            <path d="M5 12h14" />
-            <path d="M12 5v14" />
-        </svg>
-
-    </a>
 </div>

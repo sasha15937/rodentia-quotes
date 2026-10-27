@@ -12,7 +12,5 @@ footer {
     display: flex;
     flex-direction: column;
     margin-top: 4rem;
-   
-    /* gap: 1rem; */
     p {margin: 0;}
 }

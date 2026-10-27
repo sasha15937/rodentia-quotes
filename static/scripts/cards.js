@@ -4,7 +4,7 @@ const esc = (s) =>
     ));
 
 const createTags = (tags) =>
-    tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("");
+    tags.map((t) => `<span class="tag" data-tag="${esc(t)}">${esc(t)}</span>`).join("");
 
 const REACTION_EMOJI = {
     fire: "🔥",
@@ -35,7 +35,7 @@ const createSingle = (q) => {
             <img src="styles/image/quote-breck.svg" class="quote-breck">
             <div class="block-quote">${esc(line.text)}</div>
             <div class="about-quote">
-                <div class="author-quote"><span>${esc(line.author)}</span></div>
+                <span class="author-link" data-author="${esc(line.author)}">${esc(line.author)}</span>
                 ${createReactions(q)}
                 <div class="tags-quote">${createTags(q.tags)}</div>
             </div>
@@ -46,7 +46,7 @@ const createSingle = (q) => {
 
 const createDialogLine = (l) => `
     <div class="dialog-line">
-        <div class="author-quote">${l.author ? `<span>${esc(l.author)}</span>` : ""}</div>
+        <div class="author-quote">${l.author ? `<span class="author-link" data-author="${esc(l.author)}">${esc(l.author)}</span>` : ""}</div>
         <div class="text-quote">${l.author ? "<span>&#8212; </span>" : ""}${esc(l.text)}</div>
     </div>
 `;
@@ -94,4 +94,26 @@ document.addEventListener("click", async (e) => {
     } finally {
         btn.disabled = false;
     }
+});
+
+const slugify = (s) => s.trim().replace(/\s+/g, "-");
+
+document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-tag], [data-author]");
+    if (!el) return;
+
+    const q = el.dataset.tag !== undefined
+        ? "#" + slugify(el.dataset.tag)
+        : "@" + slugify(el.dataset.author);
+
+    const onHome = location.pathname === "/" || location.pathname === "/index.html";
+    if (!onHome) {
+        location.href = "/?q=" + encodeURIComponent(q); // на главную с готовым запросом
+        return;
+    }
+
+    const input = document.querySelector("#search");
+    if (!input) return;
+    input.value = q;
+    input.dispatchEvent(new Event("input", { bubbles: true }));
 });

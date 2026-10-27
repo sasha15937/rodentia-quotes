@@ -1,0 +1,148 @@
+@media screen and (max-width: 1024px) {
+    .nav-btn {
+        font-size: 12pt;
+    }
+
+    header:has(.search__box:focus-within) .nav-btn {
+        display: none;
+    }
+
+    /* и отдаём освободившееся место полю */
+    header:has(.search__box:focus-within) .search {
+        flex: 1;
+    }
+
+    header:has(.search__box:focus-within) .search__box {
+        width: 90%;
+    }
+
+    header:has(.search__box:focus-within) .search__box input {
+        flex: 1;
+        min-width: 0;
+        width: 90%;
+    }
+
+    header:has(.search__box input:not(:placeholder-shown)) .nav-btn {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .minilogo {
+        max-width: 50px;
+    }
+
+    .reactions {
+        margin-right: 0;
+    }
+
+    .nav-btn {
+        font-size: 10pt;
+    }
+
+    .tag-add-list,
+    .quote-form__tags {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button:hover,
+    .addQuote-btn:hover,
+    .author-link:hover {
+        /* background-color: var(--akc-2); */
+        color: var(--text);
+    }
+
+    .tag:hover {
+        background-color: var(--akc-1);
+        color: var(--text);
+    }
+
+    .tag {
+        justify-content: space-between;
+        padding: 5px 2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    form {
+        padding: 0;
+    }
+
+    .btn-add__text {
+        display: none;
+    }
+
+    .btn-add {
+        padding: 8px 12px;
+    }
+
+    .search__box {
+        padding: 8px;
+    }
+
+    .search__box input {
+        width: 0;
+        padding: 0;
+        min-width: 0;
+    }
+
+    .search__box input::placeholder {
+        opacity: 0;
+    }
+
+    header {
+        position: relative;
+        padding: 1rem 1rem;
+    }
+
+    header:has(.search__box:focus-within) .search {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        background: var(--bgc);
+        border-radius: inherit;
+    }
+
+    header:has(.search__box:focus-within) .search__box {
+        width: 100%;
+    }
+
+    header:has(.search__box:focus-within) .search__box input {
+        width: 100%;
+        flex: 1;
+    }
+
+    .about-quote {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .block-quote {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+
+    .quote-breck {
+        width: 35px;
+        position: relative;
+        left: 1.5rem;
+        top: 2rem;
+    }
+
+    .quote-breck-back {
+        width: 35px;
+        position: relative;
+        left: 33rem;
+        bottom: 18rem;
+    }
+
+    .quote-form__text {
+        width: 250px;
+    }
+
+}

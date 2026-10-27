@@ -86,7 +86,7 @@ const QuoteInputSchema = z
         lines: z.array(LineSchema).min(1).max(30),
         tags: z
             .array(z.string().trim().toLowerCase().min(1).max(20))
-            .max(5)
+            .max(3)
             .transform((tags) => [...new Set(tags)]), // убрать повторы
     })
     .superRefine((q, ctx) => {
