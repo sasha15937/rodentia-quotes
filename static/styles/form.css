@@ -6,17 +6,8 @@ svg {
     height: auto;
 }
 
-.quote-add {
-    background-color: var(--bgc-card);
-    padding: 2rem 3rem;
-    border-radius: var(--round-brd);
-}
-
-form {
-    padding: 1rem 3rem;
-    gap: 2rem;
-    display: flex;
-    flex-direction: column;
+input {
+    accent-color: var(--akc-2);
 }
 
 fieldset {
@@ -24,11 +15,32 @@ fieldset {
     border: 0;
 }
 
+.quote-add {
+    background-color: var(--bgc-card);
+    padding: 2rem 3rem;
+    border-radius: var(--round-brd);
+}
+
+/* раньше было просто `form` и задевало форму поиска в шапке */
+.quote-add form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 3rem;
+}
+
+.quote-form__line {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+}
+
 .quote-form__text {
-    font-family: var(--font);
-    font-size: 12pt;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     height: 100px;
+    font-family: var(--font);
+    font-size: 1.6rem;
 }
 
 .quote-form__author {
@@ -48,28 +60,19 @@ fieldset {
 
 .quote-form__add-line {
     display: none;
-    width: 150px;
-    height: 50px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 150px;
+    height: 50px;
 }
 
 .quote-form__remove-line[hidden] {
     display: none;
 }
 
-input {
-    accent-color: var(--akc-2);
-}
-
-.quote-form__line {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 10px;
-}
-
+/* режим «Диалог» */
 .quote-form--dialog .quote-form__add-line {
     display: flex;
 }
@@ -77,10 +80,16 @@ input {
 .quote-form--dialog .quote-form__line {
     flex-direction: row;
     align-items: flex-start;
-    gap: 10px;
 }
 
 .quote-form--dialog .quote-form__author {
-    width: 140px;
+    width: 150px;
+    /* раньше 140px: одинаково с одиночной цитатой */
     flex-shrink: 0;
 }
+
+.quote-form--dialog .quote-form__text {
+    min-width: 0;
+}
+
+

@@ -160,6 +160,9 @@ const loadQuotes = (status: Quote["status"] | null, visitor = ""): Quote[] => {
 
 export const getApprovedQuotes = (visitor = ""): Quote[] => loadQuotes("approved", visitor);
 export const getAllQuotes = (): Quote[] => loadQuotes(null);
+export function getApprovedQuoteById(id: number, visitor: string): Quote | undefined {
+    return getApprovedQuotes(visitor).find((q) => q.id === id);
+}
 
 type QuoteRow = {
     id: number;

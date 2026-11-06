@@ -3,9 +3,15 @@
     --bgc: #2A1E17;
     --bgc-card: #3B2A20;
     --text: #F3E5D0;
+    --text-hover: #e2cfbf;
+    /* текст при наведении */
     --fade-text: #A68B73;
     --akc-1: #D9A066;
     --akc-2: #C4704F;
+    --btn-hover: #b53935;
+    /* фон кнопок при наведении */
+    --mine: #ce4331;
+    /* моя реакция */
     --round-brd: 20px;
 }
 
@@ -18,26 +24,27 @@ body {
     min-height: 100vh;
     min-height: 100dvh;
     cursor: default;
-    margin-top: 2rem;
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin: 2rem 10vw 0;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     font-family: var(--font);
     font-size: 1.6rem;
     color: var(--text);
     background-color: var(--bgc);
-    flex-direction: column;
-    gap: 20px;
 }
 
 .logo {
     max-width: 180px;
 }
 
-.qbody {
+/* Основной блок занимает всё свободное место, поэтому подвал всегда внизу */
+.qbody,
+main {
+    flex: 1;
     display: flex;
-    gap: 20px;
     flex-direction: column;
+    gap: 20px;
 }
 
 button,
@@ -46,69 +53,72 @@ button,
     cursor: pointer;
     display: flex;
     align-items: center;
-    text-align: center;
     justify-content: center;
+    text-align: center;
+    gap: 5px;
+    padding: 0.5rem 1.5rem;
+    border-width: 0;
     border-radius: var(--round-brd);
     background-color: var(--akc-2);
-    padding: 0.5rem 1.5rem;
-    gap: 5px;
-    border-width: 0;
-    font-size: 12pt;
     font-family: var(--font);
+    font-size: 1.6rem;
     color: var(--text);
 }
 
-a:hover {
-    color: #e2cfbf;
+/* Эффекты наведения только там, где есть мышь (на телефонах не «залипают») */
+@media (hover: hover) {
+    a:hover {
+        color: var(--text-hover);
+    }
+
+    button:hover,
+    .addQuote-btn:hover,
+    .author-link:hover {
+        background-color: var(--btn-hover);
+        color: var(--text-hover);
+    }
+
+    .tag:hover {
+        background-color: var(--fade-text);
+        color: var(--text-hover);
+    }
 }
 
-button:hover,
-.addQuote-btn:hover,
-.author-link:hover {
-    background-color: #b53935;
-    color: #e2cfbf;
-}
-
-.tag:hover {
-    background-color: var(--fade-text);
-    color: #e2cfbf;
-}
-
+/* ---------- карточка цитаты ---------- */
 .quote {
+    position: relative;
+    /* кавычки привязаны к углам карточки */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: var(--bgc-card);
     border-radius: var(--round-brd);
-    /* padding: 2rem; */
-    display: flex;
-    flex-grow: 2;
-    flex-direction: column;
-    /* flex-wrap: wrap; */
-    justify-content: center;
-    /* align-items: center; */
+    /* padding: 3rem 0 2rem; */
+}
+
+.quote-breck,
+.quote-breck-back {
+    position: absolute;
+    width: 40px;
 }
 
 .quote-breck {
-    width: 40px;
-    position: relative;
-    left: 5%;
     top: 2rem;
+    left: 5%;
 }
 
 .quote-breck-back {
-    width: 40px;
-    position: relative;
-    left: 90%;
-    bottom: 12rem;
+    right: 5%;
+    bottom: 10rem;
+    /* подстройте под свой дизайн */
 }
 
 .block-quote {
     display: flex;
     flex-direction: column;
-    padding-left: 15rem;
-    padding-right: 15rem;
-    padding-top: 3rem;
-    padding-bottom: 5rem;
-    font-size: 14pt;
     gap: 20px;
+    padding: 3rem clamp(5rem, 12%, 15rem) 5rem;
+    font-size: 1.9rem;
 }
 
 .single {
@@ -116,7 +126,6 @@ button:hover,
 }
 
 .dialog {
-    align-items: left;
     padding-top: 1rem;
 }
 
@@ -129,12 +138,18 @@ button:hover,
     gap: 10px;
 }
 
+/* «пилюля» автора (.author-quote span оставлен на случай старой разметки) */
+.author-link,
 .author-quote span {
     border-radius: var(--round-brd);
     background-color: var(--akc-2);
-    font-size: 12pt;
+    font-size: 1.6rem;
     padding: 1rem 1.5rem;
     white-space: nowrap;
+}
+
+.author-link {
+    cursor: pointer;
 }
 
 .tag {
@@ -145,7 +160,7 @@ button:hover,
     text-align: center;
     gap: 1rem;
     border-radius: var(--round-brd);
-    font-size: 12pr;
+    font-size: 1.6rem;
     background-color: var(--akc-1);
     padding: 0.5rem 1rem;
 }
@@ -157,33 +172,20 @@ button:hover,
 
 .about-quote {
     display: flex;
-    flex-grow: 2;
     align-items: center;
     justify-content: space-between;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    margin-top: 3rem;
-}
-
-
-.author-link {
-    cursor: pointer;
-    border-radius: var(--round-brd);
-    background-color: var(--akc-2);
-    font-size: 12pt;
-    padding: 1rem 1.5rem;
-    white-space: nowrap;
+    margin: 3rem 5rem 0;
 }
 
 .reactions {
     display: flex;
-    padding: 1rem 2rem;
     gap: 10px;
+    padding: 1rem 2rem;
     margin-right: 3rem;
 }
 
 .reaction--mine {
-    background-color: #ce4331;
+    background-color: var(--mine);
 }
 
 .top-tabs {
@@ -191,3 +193,33 @@ button:hover,
     gap: 10px;
 }
 
+.share-btn {
+    margin-left: 0.5rem;
+}
+
+.page {
+    background-color: var(--bgc-card);
+    border-radius: var(--round-brd);
+    padding: 2rem 3rem;
+    line-height: 1.6;
+}
+
+.page h1,
+.page h2 {
+    color: var(--akc-1);
+}
+
+.right-foot {
+    display: flex;
+    gap: 8rem;
+    flex-direction: column;
+}
+
+.guideBtn {
+    text-decoration: underline;
+}
+
+.block-tag-copy {
+    display: flex;
+    
+}

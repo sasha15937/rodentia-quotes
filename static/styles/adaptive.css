@@ -1,32 +1,27 @@
+/* ---------- ≤ 1024px: поиск вытесняет ссылки ---------- */
 @media screen and (max-width: 1024px) {
-    .nav-btn {
-        font-size: 12pt;
-    }
 
-    header:has(.search__box:focus-within) .nav-btn {
+    header:has(.search__box:focus-within) .nav-btn,
+    header:has(.search__box input:not(:placeholder-shown)) .nav-btn {
         display: none;
     }
 
-    /* и отдаём освободившееся место полю */
+    /* освободившееся место отдаём полю */
     header:has(.search__box:focus-within) .search {
         flex: 1;
     }
 
     header:has(.search__box:focus-within) .search__box {
-        width: 90%;
+        width: 100%;
     }
 
     header:has(.search__box:focus-within) .search__box input {
         flex: 1;
         min-width: 0;
-        width: 90%;
-    }
-
-    header:has(.search__box input:not(:placeholder-shown)) .nav-btn {
-        display: none;
     }
 }
 
+/* ---------- ≤ 768px: планшет и телефон ---------- */
 @media screen and (max-width: 768px) {
     .minilogo {
         max-width: 50px;
@@ -36,26 +31,10 @@
         margin-right: 0;
     }
 
-    .nav-btn {
-        font-size: 10pt;
-    }
-
     .tag-add-list,
     .quote-form__tags {
         flex-direction: column;
         gap: 10px;
-    }
-
-    button:hover,
-    .addQuote-btn:hover,
-    .author-link:hover {
-        /* background-color: var(--akc-2); */
-        color: var(--text);
-    }
-
-    .tag:hover {
-        background-color: var(--akc-1);
-        color: var(--text);
     }
 
     .tag {
@@ -64,12 +43,14 @@
     }
 }
 
+/* ---------- ≤ 480px: телефон ---------- */
 @media screen and (max-width: 480px) {
-
-    form {
-        padding: 0;
+    header {
+        position: relative;
+        padding: 1rem;
     }
 
+    /* «Добавить» превращается в «+» */
     .btn-add__text {
         display: none;
     }
@@ -78,26 +59,23 @@
         padding: 8px 12px;
     }
 
+    /* поиск сворачивается в лупу */
     .search__box {
         padding: 8px;
     }
 
     .search__box input {
         width: 0;
-        padding: 0;
         min-width: 0;
+        padding: 0;
     }
 
     .search__box input::placeholder {
         opacity: 0;
     }
 
-    header {
-        position: relative;
-        padding: 1rem 1rem;
-    }
-
-    header:has(.search__box:focus-within) .search {
+    /* и раскрывается поверх всей шапки: пока в поле фокус ИЛИ в нём есть текст */
+    header:is(:has(.search__box:focus-within), :has(.search__box input:not(:placeholder-shown))) .search {
         position: absolute;
         inset: 0;
         z-index: 5;
@@ -108,13 +86,17 @@
         border-radius: inherit;
     }
 
-    header:has(.search__box:focus-within) .search__box {
+    header:is(:has(.search__box:focus-within), :has(.search__box input:not(:placeholder-shown))) .search__box {
         width: 100%;
     }
 
-    header:has(.search__box:focus-within) .search__box input {
-        width: 100%;
+    header:is(:has(.search__box:focus-within), :has(.search__box input:not(:placeholder-shown))) .search__box input {
         flex: 1;
+        width: 100%;
+    }
+
+    .quote-add form {
+        padding: 0;
     }
 
     .about-quote {
@@ -122,27 +104,25 @@
         gap: 20px;
     }
 
-    .block-quote {
-        padding-left: 5rem;
-        padding-right: 5rem;
-    }
-
-    .quote-breck {
-        width: 35px;
-        position: relative;
-        left: 1.5rem;
-        top: 2rem;
-    }
-
+    .quote-breck,
     .quote-breck-back {
         width: 35px;
-        position: relative;
-        left: 33rem;
-        bottom: 18rem;
     }
 
-    .quote-form__text {
-        width: 250px;
+    .quote-form--dialog .quote-form__line {
+        flex-direction: column;
+        align-items: stretch;
     }
 
+    .quote-form__line {
+        margin-top: 2rem;
+    }
+
+    .quote-form--dialog .quote-form__author {
+        width: 100%;
+    }
+
+    .quote-form__remove-line {
+        width: 50px;
+    }
 }

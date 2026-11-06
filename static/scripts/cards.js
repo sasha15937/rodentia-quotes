@@ -37,9 +37,13 @@ const createSingle = (q) => {
             <div class="about-quote">
                 <span class="author-link" data-author="${esc(line.author)}">${esc(line.author)}</span>
                 ${createReactions(q)}
-                <div class="tags-quote">${createTags(q.tags)}</div>
+                <div class="block-tag-copy">
+                    <div class="tags-quote">${createTags(q.tags)}</div>
+                    <button class="share-btn" data-share="${q.id}" title="Скопировать ссылку">🔗</button>
+                </div>
             </div>
             <img src="styles/image/quote-breck-back.svg" class="quote-breck-back">
+            
         </div>
     `;
 };
@@ -59,7 +63,10 @@ const createDialog = (q) => `
         </div>
         <div class="about-quote">
             ${createReactions(q)}
-            <div class="tags-quote">${createTags(q.tags)}</div>
+            <div class="block-tag-copy">
+                <div class="tags-quote">${createTags(q.tags)}</div>
+                <button class="share-btn" data-share="${q.id}" title="Скопировать ссылку">🔗</button>
+            </div>
         </div>
         <img src="styles/image/quote-breck-back.svg" class="quote-breck-back">
     </div>
@@ -97,6 +104,19 @@ document.addEventListener("click", async (e) => {
 });
 
 const slugify = (s) => s.trim().replace(/\s+/g, "-");
+
+document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("[data-share]");
+    if (!btn) return;
+    const url = `${location.origin}/quote.html?id=${btn.dataset.share}`;
+    try {
+        await navigator.clipboard.writeText(url);
+        btn.textContent = "✓";
+        setTimeout(() => (btn.textContent = "🔗"), 1500);
+    } catch {
+        prompt("Скопируйте ссылку:", url);
+    }
+});
 
 document.addEventListener("click", (e) => {
     const el = e.target.closest("[data-tag], [data-author]");

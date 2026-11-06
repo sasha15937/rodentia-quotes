@@ -1,23 +1,26 @@
 header {
-    background-color: var(--bgc-card);
-    border-radius: var(--round-brd);
-    padding: 1rem 5rem;
-    flex-grow: 0;
+    display: flex;
     align-items: center;
-    text-align: center;
     justify-content: space-between;
     gap: 2rem;
-    display: flex;
+    padding: 1rem 5rem;
+    background-color: var(--bgc-card);
+    border-radius: var(--round-brd);
+}
 
+nav,
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .nav-btn {
     color: var(--text);
     text-decoration: none;
-    font-size: 14pt;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
+    /* плавно от 13px на телефоне до 19px на большом экране */
+    font-size: clamp(1.3rem, 0.4rem + 1.2vw, 1.9rem);
 }
 
 .div-line {
@@ -31,10 +34,9 @@ header {
     align-items: center;
     gap: 8px;
     padding: 0.5rem 1rem;
-    /* возьмите рамку и цвет, как у прежней кнопки */
     border: 2px solid var(--akc-1);
     border-radius: var(--round-brd);
-    cursor: pointer;
+    cursor: text;
 }
 
 .search__box input {
@@ -48,35 +50,11 @@ header {
 }
 
 .search__box input::placeholder {
-    color: inherit;
-    /* «Поиск» выглядит так же, как раньше */
+    color: inherit;   /* «Поиск» выглядит как обычный текст */
     opacity: 1;
 }
 
 /* при вводе поле раздвигается, чтобы запрос помещался */
 .search__box:focus-within input {
     width: 14rem;
-}
-
-/* .search__box {
-    border: 2px solid var(--akc-1);
-    border-radius: var(--round-brd);
-    
-    display: flex;
-    gap: 10px;
-    background-color: var(--bgc);
-}
-
-#search-form:hover {
-    border: 2px solid var(--akc-2);
-    color: #e2cfbf;
-    background-color: var(--bgc-card);
-} */
-
-nav,
-.nav-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
 }

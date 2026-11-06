@@ -1,16 +1,19 @@
 footer {
     display: flex;
-    flex-grow: 2;
-    background-color: var(--bgc-card);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
     justify-content: space-between;
     padding: 2rem;
+    background-color: var(--bgc-card);
+    border-top-left-radius: var(--round-brd);
+    border-top-right-radius: var(--round-brd);
 }
 
 .foot-text {
     display: flex;
     flex-direction: column;
     margin-top: 4rem;
-    p {margin: 0;}
+
+    p {
+        margin: 0;
+    }
 }
+

@@ -5,7 +5,7 @@ import { timingSafeEqual } from "node:crypto";
 import type { RequestHandler } from "express";
 import cookieParser from "cookie-parser";
 import { randomUUID } from "node:crypto";
-import { createQuote, updateQuote, getApprovedQuotes, getAllQuotes, approveQuote, deleteQuote, getQuoteOfTheDay, isReactionKind, toggleReaction, getReactionState, getTopQuotes } from "./db.js";
+import { createQuote, updateQuote, getApprovedQuotes, getApprovedQuoteById, getAllQuotes, approveQuote, deleteQuote, getQuoteOfTheDay, isReactionKind, toggleReaction, getReactionState, getTopQuotes } from "./db.js";
 import "dotenv/config";
 import { rateLimit } from "express-rate-limit";
 
@@ -203,9 +203,27 @@ app.post("/api/quotes/:id/reactions/:kind", reactionLimiter, (req, res) => {
     res.json({ result, ...getReactionState(id, visitor) });
 });
 
+app.get("/api/quotes/:id", (req, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id)) return res.status(400).json({ error: "bad id" });
+
+    const quote = getApprovedQuoteById(id, res.locals.visitor);
+    if (!quote) return res.status(404).json({ error: "not found" });
+
+    res.json(quote);
+});
+
 app.get("/api/top", (req, res) => {
     const period = req.query.period === "month" ? "month" : "all";
     res.json(getTopQuotes(period, res.locals.visitor as string));
+});
+
+// неизвестный API-адрес: JSON, а не HTML
+app.use("/api", (_req, res) => res.status(404).json({ error: "not found" }));
+
+// всё остальное: красивая страница
+app.use((_req, res) => {
+    res.status(404).sendFile("404.html", { root: '/static' });  // staticDir: ваш путь к папке static
 });
 
 app.use("/admin", admin);
